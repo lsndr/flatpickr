@@ -5,3 +5,4 @@
 !src/style/**/*
 !index.d.ts
 !dist
+!dist/**/*
