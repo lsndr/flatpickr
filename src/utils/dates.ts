@@ -18,7 +18,6 @@ export interface FormatterArgs {
 export const createDateFormatter = ({
   config = defaults,
   l10n = english,
-  isMobile = false,
 }: FormatterArgs) => (
   dateObj: Date,
   frmt: string,
@@ -26,7 +25,7 @@ export const createDateFormatter = ({
 ): string => {
   const locale = overrideLocale || l10n;
 
-  if (config.formatDate !== undefined && !isMobile) {
+  if (config.formatDate !== undefined) {
     return config.formatDate(dateObj, frmt, locale);
   }
 

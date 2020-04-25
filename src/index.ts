@@ -479,9 +479,8 @@ function FlatpickrInstance(
         );
       }
     }
-    
-    if (self.config.allowInput)
-      bind(self._input, "blur", onBlur);
+
+    if (self.config.allowInput) bind(self._input, "blur", onBlur);
   }
 
   /**
@@ -1476,7 +1475,11 @@ function FlatpickrInstance(
 
         self.close();
 
-        if (self.config && self.config.mode === "range" && self.selectedDates.length === 1) {
+        if (
+          self.config &&
+          self.config.mode === "range" &&
+          self.selectedDates.length === 1
+        ) {
           self.clear(false);
           self.redraw();
         }
@@ -1594,14 +1597,18 @@ function FlatpickrInstance(
       );
     return false;
   }
-    
+
   function onBlur(e: FocusEvent) {
     var isInput = e.target === self._input;
-    
+
     if (isInput) {
-      self.setDate(self._input.value, true, e.target === self.altInput
-                   ? self.config.altFormat
-                   : self.config.dateFormat);
+      self.setDate(
+        self._input.value,
+        true,
+        e.target === self.altInput
+          ? self.config.altFormat
+          : self.config.dateFormat
+      );
     }
   }
 
@@ -2633,12 +2640,14 @@ function FlatpickrInstance(
     self.mobileInput.required = self.input.required;
     self.mobileInput.placeholder = self.input.placeholder;
 
-    self.mobileFormatStr =
-      inputType === "datetime-local"
-        ? "Y-m-d\\TH:i:S"
-        : inputType === "date"
-        ? "Y-m-d"
-        : "H:i:S";
+    if (inputType === "datetime-local") {
+      self.mobileFormatStr =
+        self.config.mobileDateTimeFormatStr ?? "Y-m-d\\TH:i:S";
+    } else if (inputType === "date") {
+      self.mobileFormatStr = self.config.mobileDateFormatStr ?? "Y-m-d";
+    } else {
+      self.mobileFormatStr = self.config.mobileTimeFormatStr ?? "H:i:S";
+    }
 
     if (self.selectedDates.length > 0) {
       self.mobileInput.defaultValue = self.mobileInput.value = self.formatDate(

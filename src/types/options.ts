@@ -322,6 +322,9 @@ export interface ParsedOptions {
   time_24hr: boolean;
   weekNumbers: boolean;
   wrap: boolean;
+  mobileDateTimeFormatStr?: string;
+  mobileDateFormatStr?: string;
+  mobileTimeFormatStr?: string;
 }
 
 export const defaults: ParsedOptions = {
